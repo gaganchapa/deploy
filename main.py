@@ -74,7 +74,7 @@ class Model(nn.Module):
 
 
 model = Model()
-model.load_state_dict(torch.load('saved_modelcyclone', map_location=torch.device('cpu')))
+model.load_state_dict(torch.load('saved_modelcyclone', map_location=torch.device('cpu'), weights_only=False))
 model.eval()
 # model ends here
 
