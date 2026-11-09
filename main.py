@@ -19,6 +19,7 @@ HF_SPACE_ID = os.environ.get(
     "HF_SPACE_ID",
     "gagandwaz/cyclonet-api"
 )
+HF_TOKEN = os.environ.get("HF_TOKEN", None)
 
 # Initialize Gradio Client (caches connection)
 _client = None
@@ -26,7 +27,7 @@ _client = None
 def get_hf_client():
     global _client
     if _client is None:
-        _client = Client(HF_SPACE_ID)
+        _client = Client(HF_SPACE_ID, hf_token=HF_TOKEN)
     return _client
 
 def call_hf_inference(image_path: str) -> float:
