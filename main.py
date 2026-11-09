@@ -1,5 +1,7 @@
 import os
-os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
+# KMP flag only needed on Windows; skip on Linux (Render)
+if os.name == 'nt':
+    os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 import jinja2
 import io
 import json
@@ -19,6 +21,9 @@ matplotlib.use('Agg')
 from geopy.geocoders import Nominatim
 import folium
 from folium import plugins
+
+# Limit PyTorch CPU threads to reduce memory usage on free-tier servers
+torch.set_num_threads(1)
 
 
 class Model(nn.Module):
