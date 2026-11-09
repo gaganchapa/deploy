@@ -1,0 +1,212 @@
+[
+  {
+    "id": 0,
+    "capture_date": "2026-04-17",
+    "capture_time": "14:08",
+    "latitude": 12.0,
+    "longitude": 12.0,
+    "predicted_intensity": 22.0,
+    "image_filename": "118.jpg",
+    "timestamp": "2026-04-16T14:05:27.037727"
+  },
+  {
+    "id": 1,
+    "capture_date": "2026-04-02",
+    "capture_time": "17:05",
+    "latitude": 12.0,
+    "longitude": 12.0,
+    "predicted_intensity": 23.0,
+    "image_filename": "35.jpg",
+    "timestamp": "2026-04-16T14:05:44.486908"
+  },
+  {
+    "id": 2,
+    "capture_date": "2026-04-03",
+    "capture_time": "17:07",
+    "latitude": 12.0,
+    "longitude": 13.0,
+    "predicted_intensity": 27.0,
+    "image_filename": "36.jpg",
+    "timestamp": "2026-04-16T14:07:43.655612"
+  },
+  {
+    "id": 3,
+    "capture_date": "2026-04-15",
+    "capture_time": "18:33",
+    "latitude": 12.0,
+    "longitude": 32.0,
+    "predicted_intensity": 22.0,
+    "image_filename": "118.jpg",
+    "timestamp": "2026-04-28T18:32:42.135633"
+  },
+  {
+    "id": 4,
+    "capture_date": "2026-04-10",
+    "capture_time": "21:33",
+    "latitude": 12.0,
+    "longitude": 12.0,
+    "predicted_intensity": 23.0,
+    "image_filename": "35.jpg",
+    "timestamp": "2026-04-28T18:33:23.984838"
+  },
+  {
+    "id": 5,
+    "capture_date": "2026-10-02",
+    "capture_time": "19:20",
+    "latitude": 23.0,
+    "longitude": 12.0,
+    "predicted_intensity": 23.0,
+    "image_filename": "35.jpg",
+    "timestamp": "2026-10-02T19:18:50.065662"
+  },
+  {
+    "id": 6,
+    "capture_date": "2026-10-16",
+    "capture_time": "19:22",
+    "latitude": 13.0,
+    "longitude": 22.0,
+    "predicted_intensity": 26.0,
+    "image_filename": "30.jpg",
+    "timestamp": "2026-10-02T19:19:30.248961"
+  },
+  {
+    "id": 7,
+    "capture_date": "2026-10-23",
+    "capture_time": "19:22",
+    "latitude": 44.0,
+    "longitude": 34.0,
+    "predicted_intensity": 26.0,
+    "image_filename": "30.jpg",
+    "timestamp": "2026-10-02T19:21:38.175658"
+  },
+  {
+    "id": 10,
+    "capture_date": "2026-11-05",
+    "capture_time": "16:22",
+    "latitude": 34.0,
+    "longitude": 12.0,
+    "predicted_intensity": 41.0,
+    "image_filename": "27.jpg",
+    "timestamp": "2026-10-27T16:19:22.172983"
+  },
+  {
+    "id": 11,
+    "capture_date": "2026-10-29",
+    "capture_time": "16:23",
+    "latitude": 33.0,
+    "longitude": 12.0,
+    "predicted_intensity": 106.0,
+    "image_filename": "118.jpg",
+    "timestamp": "2026-10-27T16:19:42.615441"
+  },
+  {
+    "id": 12,
+    "capture_date": "2026-10-08",
+    "capture_time": "16:23",
+    "latitude": 22.0,
+    "longitude": 11.0,
+    "predicted_intensity": 78.0,
+    "image_filename": "99.jpg",
+    "timestamp": "2026-10-27T16:20:05.676034"
+  },
+  {
+    "id": 13,
+    "capture_date": "2026-10-09",
+    "capture_time": "16:28",
+    "latitude": 22.0,
+    "longitude": 22.0,
+    "predicted_intensity": 106.0,
+    "image_filename": "118.jpg",
+    "timestamp": "2026-10-27T16:26:51.119081"
+  },
+  {
+    "id": 14,
+    "capture_date": "2026-10-29",
+    "capture_time": "16:41",
+    "latitude": 12.0,
+    "longitude": 11.0,
+    "predicted_intensity": 66.0,
+    "image_filename": "69.jpg",
+    "timestamp": "2026-10-27T16:37:19.623748"
+  },
+  {
+    "id": 15,
+    "capture_date": "2026-10-22",
+    "capture_time": "21:42",
+    "latitude": 12.0,
+    "longitude": 22.0,
+    "predicted_intensity": 57.0,
+    "image_filename": "59.jpg",
+    "timestamp": "2026-10-27T16:43:01.747289"
+  },
+  {
+    "id": 16,
+    "capture_date": "2026-10-30",
+    "capture_time": "16:53",
+    "latitude": 12.0,
+    "longitude": 22.0,
+    "predicted_intensity": 37.0,
+    "image_filename": "arnab-64.png",
+    "timestamp": "2026-10-27T16:47:26.177278"
+  },
+  {
+    "id": 17,
+    "capture_date": "2026-10-15",
+    "capture_time": "21:53",
+    "latitude": 13.0,
+    "longitude": 12.0,
+    "predicted_intensity": 97.0,
+    "image_filename": "phillipe-64.png",
+    "timestamp": "2026-10-27T17:53:44.703905"
+  },
+  {
+    "id": 18,
+    "capture_date": "2026-10-23",
+    "capture_time": "17:57",
+    "latitude": 12.0,
+    "longitude": 32.0,
+    "predicted_intensity": 56.0,
+    "image_filename": "irene-64.png",
+    "timestamp": "2026-10-27T17:55:21.624268"
+  },
+  {
+    "id": 19,
+    "capture_date": "2026-11-04",
+    "capture_time": "21:22",
+    "latitude": 11.0,
+    "longitude": 22.0,
+    "predicted_intensity": 97.0,
+    "image_filename": "phillipe-64.png",
+    "timestamp": "2026-10-29T18:22:52.869776"
+  },
+  {
+    "id": 20,
+    "capture_date": "2026-10-23",
+    "capture_time": "18:26",
+    "latitude": 11.0,
+    "longitude": 22.0,
+    "predicted_intensity": 56.0,
+    "image_filename": "irene-64.png",
+    "timestamp": "2026-10-29T18:23:14.414432"
+  },
+  {
+    "id": 21,
+    "capture_date": "2026-10-08",
+    "capture_time": "18:25",
+    "latitude": 11.0,
+    "longitude": 22.0,
+    "predicted_intensity": 37.0,
+    "image_filename": "arnab-64.png",
+    "timestamp": "2026-10-29T18:23:52.540428"
+  },
+  {
+    "id": 22,
+    "capture_date": "2026-10-23",
+    "capture_time": "18:27",
+    "latitude": 11.0,
+    "longitude": 22.0,
+    "predicted_intensity": 106.0,
+    "image_filename": "118.jpg",
+    "timestamp": "2026-10-29T18:24:15.049320"
+  }
+]
