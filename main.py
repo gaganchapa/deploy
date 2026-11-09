@@ -2,7 +2,7 @@ import os
 import io
 import json
 import csv
-import requests
+from gradio_client import Client, handle_file
 import cv2
 import numpy as np
 from flask import Flask, flash, request, redirect, url_for, render_template, jsonify
@@ -15,25 +15,29 @@ from geopy.geocoders import Nominatim
 import folium
 from folium import plugins
 
-# Hugging Face endpoint URL
-HF_INFERENCE_URL = os.environ.get(
-    "HF_INFERENCE_URL",
-    "https://gagandwaz-cyclonet-api.hf.space/predict"
+# Hugging Face Space ID or URL
+HF_SPACE_ID = os.environ.get(
+    "HF_SPACE_ID",
+    "gagandwaz/cyclonet-api"
 )
 
+# Initialize Gradio Client (caches connection)
+_client = None
+
+def get_hf_client():
+    global _client
+    if _client is None:
+        _client = Client(HF_SPACE_ID)
+    return _client
+
 def call_hf_inference(image_path: str) -> float:
-    """Send image file directly as multipart upload to Hugging Face FastAPI endpoint."""
-    url = HF_INFERENCE_URL.rstrip('/')
-    if not url.endswith('/predict'):
-        url = f"{url}/predict"
-        
-    with open(image_path, "rb") as f:
-        files = {"file": (os.path.basename(image_path), f, "image/jpeg")}
-        resp = requests.post(url, files=files, timeout=90)
-    
-    resp.raise_for_status()
-    data = resp.json()
-    return float(data.get("predicted_intensity", 0.0))
+    """Send image to Hugging Face ZeroGPU Gradio Space via official gradio_client."""
+    client = get_hf_client()
+    result = client.predict(
+        image=handle_file(image_path),
+        api_name="/predict"
+    )
+    return float(result)
 
 app = Flask(__name__)
 
@@ -132,7 +136,7 @@ def predict():
             predicted_intensity = call_hf_inference(image_path)
         except Exception as e:
             print(f"HF inference error: {e}")
-            flash('Inference service is starting or unavailable. Please try again shortly.')
+            flash('Inference service is warming up or unavailable. Please try again in a few seconds.')
             return redirect(request.url)
 
         r = 100
