@@ -3,7 +3,6 @@ import io
 import json
 import csv
 from gradio_client import Client, handle_file
-import cv2
 import numpy as np
 from flask import Flask, flash, request, redirect, url_for, render_template, jsonify
 from werkzeug.utils import secure_filename
