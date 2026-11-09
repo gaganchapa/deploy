@@ -27,7 +27,7 @@ _client = None
 def get_hf_client():
     global _client
     if _client is None:
-        _client = Client(HF_SPACE_ID, hf_token=HF_TOKEN)
+        _client = Client(HF_SPACE_ID, token=HF_TOKEN)
     return _client
 
 def call_hf_inference(image_path: str) -> float:
