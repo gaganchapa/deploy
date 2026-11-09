@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Ubuntu&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico"> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+ 
+  <!-- Template Main CSS File -->
+  <link href="{{url_for('static', filename='css/archivestyle.css')}}" rel="stylesheet">
+  <style>
+    .plot-container {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    .plot-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .plot-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .control-buttons {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+    }
+    .btn-custom {
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .spinner-border {
+      color: #007bff;
+    }
+  </style>
+</head>
+
+<body>
+
+    <!-- Nav Bar -->
+
+
+    <section class="Form-back">    
+
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Insat 3D Archive</h3>
+    <a href="/" class="btn btn-outline-light">
+      <i class="fas fa-home"></i> Back to Home
+    </a>
+  </div>
+  
+  <!-- Control Buttons -->
+  <div class="control-buttons">
+    <h5>Selected Records Actions:</h5>
+    <button class="btn btn-primary btn-custom" onclick="generateMapPlot()">
+      <i class="fas fa-map"></i> Plot Interactive Map
+    </button>
+    <button class="btn btn-success btn-custom" onclick="generateIntensityPlot()">
+      <i class="fas fa-chart-line"></i> Plot Intensity vs Time
+    </button>
+    <button class="btn btn-info btn-custom" onclick="generateLocationPlot()">
+      <i class="fas fa-globe"></i> Plot Location Info
+    </button>
+    <button class="btn btn-warning btn-custom" onclick="saveSelectedData()">
+      <i class="fas fa-save"></i> Save Selected Data
+    </button>
+    <button class="btn btn-danger btn-custom" onclick="deleteSelectedRecords()">
+      <i class="fas fa-trash"></i> Delete Selected
+    </button>
+    <button class="btn btn-secondary btn-custom" onclick="selectAllRecords()">
+      Select All
+    </button>
+    <button class="btn btn-secondary btn-custom" onclick="deselectAllRecords()">
+      Deselect All
+    </button>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div class="loading" id="loading">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <p>Generating plots...</p>
+  </div>
+
+  <!-- Archive Table -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">
+            <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()">
+          </th>
+          <th scope="col">Capture Date</th>
+          <th scope="col">Capture Time</th>
+          <th scope="col">Latitude</th>
+          <th scope="col">Longitude</th>
+          <th scope="col">Predicted Intensity</th>
+          <th scope="col">Location</th>
+          <th scope="col">Image File</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>
+            <input type="checkbox" class="record-checkbox" value="{{item.id}}" onchange="updateSelectAll()">
+          </td>
+          <th scope="row">{{item.capture_date}}</th>
+          <td>{{item.capture_time}}</td>
+          <td>{{item.latitude}}</td>
+          <td>{{item.longitude}}</td>
+          <td>{{item.predicted_intensity}}</td>
+          <td>{{item.location}}</td>
+          <td><a href="/{{item.image_filename}}" target="_blank">{{item.image_filename}}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Plot Containers -->
+  <div id="plotContainers">
+    <!-- Map Plot -->
+    <div class="plot-container" id="mapContainer" style="display: none;">
+      <div class="plot-title">Interactive Map - Cyclone Path</div>
+      <iframe id="mapFrame" width="100%" height="600" frameborder="0"></iframe>
+    </div>
+
+    <!-- Intensity Plot -->
+    <div class="plot-container" id="intensityContainer" style="display: none;">
+      <div class="plot-title">Cyclone Intensity Over Time</div>
+      <img id="intensityImg" class="plot-image" style="width: 100%; height: auto;">
+    </div>
+
+    <!-- Location Plot -->
+    <div class="plot-container" id="locationContainer" style="display: none;">
+      <div class="plot-title">Cyclone Path - Location Information</div>
+      <img id="locationImg" class="plot-image" style="width: 100%; height: auto;">
+    </div>
+  </div>
+  
+</div>  
+    </section>
+
+<footer>
+  <center>
+    <a href="/">Home</a>
+  </center>
+</footer>
+
+<script>
+function getSelectedRecords() {
+  const checkboxes = document.querySelectorAll('.record-checkbox:checked');
+  return Array.from(checkboxes).map(cb => parseInt(cb.value));
+}
+
+function showLoading() {
+  document.getElementById('loading').style.display = 'block';
+}
+
+function hideLoading() {
+  document.getElementById('loading').style.display = 'none';
+}
+
+function generateMapPlot() {
+  const selectedIds = getSelectedRecords();
+  if (selectedIds.length === 0) {
+    alert('Please select at least one record');
+    return;
+  }
+
+  showLoading();
+  fetch('/api/plot_map', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ selected_ids: selectedIds })
+  })
+  .then(response => response.json())
+  .then(data => {
+    hideLoading();
+    if (data.success) {
+      document.getElementById('mapFrame').src = data.map_url;
+      document.getElementById('mapContainer').style.display = 'block';
+    } else {
+      alert('Error: ' + data.error);
+    }
+  })
+  .catch(error => {
+    hideLoading();
+    alert('Error generating map: ' + error);
+  });
+}
+
+function generateIntensityPlot() {
+  const selectedIds = getSelectedRecords();
+  if (selectedIds.length === 0) {
+    alert('Please select at least one record');
+    return;
+  }
+
+  showLoading();
+  fetch('/api/plot_intensity', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ selected_ids: selectedIds })
+  })
+  .then(response => response.json())
+  .then(data => {
+    hideLoading();
+    if (data.success) {
+      document.getElementById('intensityImg').src = data.plot_url + '?t=' + new Date().getTime();
+      document.getElementById('intensityContainer').style.display = 'block';
+    } else {
+      alert('Error: ' + data.error);
+    }
+  })
+  .catch(error => {
+    hideLoading();
+    alert('Error generating plot: ' + error);
+  });
+}
+
+function generateLocationPlot() {
+  const selectedIds = getSelectedRecords();
+  if (selectedIds.length === 0) {
+    alert('Please select at least one record');
+    return;
+  }
+
+  showLoading();
+  fetch('/api/plot_location', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ selected_ids: selectedIds })
+  })
+  .then(response => response.json())
+  .then(data => {
+    hideLoading();
+    if (data.success) {
+      document.getElementById('locationImg').src = data.plot_url + '?t=' + new Date().getTime();
+      document.getElementById('locationContainer').style.display = 'block';
+    } else {
+      alert('Error: ' + data.error);
+    }
+  })
+  .catch(error => {
+    hideLoading();
+    alert('Error generating plot: ' + error);
+  });
+}
+
+function saveSelectedData() {
+  const selectedIds = getSelectedRecords();
+  if (selectedIds.length === 0) {
+    alert('Please select at least one record');
+    return;
+  }
+
+  showLoading();
+  fetch('/api/save_selected', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ selected_ids: selectedIds })
+  })
+  .then(response => response.json())
+  .then(data => {
+    hideLoading();
+    if (data.success) {
+      alert(data.message);
+      // Optionally download the file
+      window.location.href = data.file_url;
+    } else {
+      alert('Error: ' + data.error);
+    }
+  })
+  .catch(error => {
+    hideLoading();
+    alert('Error saving data: ' + error);
+  });
+}
+
+function deleteSelectedRecords() {
+  const selectedIds = getSelectedRecords();
+  if (selectedIds.length === 0) {
+    alert('Please select at least one record');
+    return;
+  }
+  if (!confirm('Delete the selected archive record(s)?')) {
+    return;
+  }
+
+  fetch('/api/delete_selected', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ selected_ids: selectedIds })
+  })
+  .then(response => response.json().then(data => ({ ok: response.ok, data })))
+  .then(result => {
+    if (!result.ok || !result.data.success) {
+      throw new Error(result.data.error || 'Unable to delete records');
+    }
+    alert(result.data.message);
+    window.location.reload();
+  })
+  .catch(error => alert('Error deleting records: ' + error.message));
+}
+
+function selectAllRecords() {
+  document.querySelectorAll('.record-checkbox').forEach(cb => cb.checked = true);
+  updateSelectAll();
+}
+
+function deselectAllRecords() {
+  document.querySelectorAll('.record-checkbox').forEach(cb => cb.checked = false);
+  updateSelectAll();
+}
+
+function toggleSelectAll() {
+  const isChecked = document.getElementById('selectAllCheckbox').checked;
+  document.querySelectorAll('.record-checkbox').forEach(cb => cb.checked = isChecked);
+}
+
+function updateSelectAll() {
+  const allCheckboxes = document.querySelectorAll('.record-checkbox');
+  const checkedCheckboxes = document.querySelectorAll('.record-checkbox:checked');
+  document.getElementById('selectAllCheckbox').checked = allCheckboxes.length === checkedCheckboxes.length && allCheckboxes.length > 0;
+}
+</script>
+
+</body>
+</html>
