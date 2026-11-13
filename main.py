@@ -216,6 +216,7 @@ def delete_record(record_id):
         flash('Record not found')
     return redirect(url_for('archive'))
 
+@app.route('/api/plot_map', methods=['POST'])
 @app.route('/api/plot_cyclone_map', methods=['POST'])
 def plot_cyclone_map():
     data = request.json
